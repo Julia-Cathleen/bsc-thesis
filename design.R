@@ -1,3 +1,4 @@
+
 simulate_data <- function(
   sample_size, # number subjects overall
   effects, # matrix 2 x 2? dose x endpoint
@@ -46,7 +47,7 @@ get_power <- function(n_sim, ...) {
     mutate(
       res = furrr::future_map(1:n_sim, .f = simulate_scenario_once, ...)
     ) |>
-    unnest(res) 
+    unnest(res)
   #calculate power of tbl_results
 }
 
