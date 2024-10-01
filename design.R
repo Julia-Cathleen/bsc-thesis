@@ -1,4 +1,3 @@
-
 simulate_data <- function(
   sample_size, # number subjects overall
   effects, # matrix 2 x 2? dose x endpoint
