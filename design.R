@@ -2,7 +2,7 @@ simulate_data <- function(
   sample_size, # number subjects overall
   effects, # matrix 2 x 2? dose x endpoint
   rho # correlation between the endpoints
-) {} # sample_size x 3 matrix with columns: dosis (0, 1, 2), a, b
+) {} # sample_size x 3 matrix with columns: dose (0, 1, 2), a, b
 
 summarize_data <- function(
   data
@@ -32,8 +32,8 @@ simulate_scenario_once <- function(
   gamma,
   estimate
 ) {
-  effects <- matrix (c(mu_a1, mu_a2,
-                     mu_b1, mu_b2), nrow = 2, by.row = TRUE)
+  effects <- matrix (c(mu_a2, mu_a1,
+                     mu_b2, mu_b1), nrow = 2, by.row = TRUE)
   res <- simultate_data(sample_size, effects, rho) |> summarize_data()
   if (estimate == TRUE) {
     rho <- res$rho_hat
