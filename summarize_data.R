@@ -1,7 +1,7 @@
 summarize_data <- function(
     data
 ) {
-    tbl_statistics <- data |>
+    tbl_pval <- temp |>
       pivot_longer(
         a:b,
         names_to = "endpoint",
@@ -42,25 +42,18 @@ summarize_data <- function(
         ),
         p = 1 - pnorm(z, lower.tail = FALSE)
       )  |>
-      pivot_longer(
-        c("z", "p"),
-        names_to = "values",
-        values_to = "value"
-      ) |>
+      select(-z) |>
       unite("endpoint_group", endpoint, group, sep = "_") |>
       pivot_wider(
         names_from = endpoint_group,
-        values_from = value
+        values_from = p
       ) |>
-      select(c("values","a_2", "b_2", "a_1", "b_1"))
-
-    tbl_pvalues <- tbl_statistics[2, ] |>
       select(c("a_2", "b_2", "a_1", "b_1"))
 
 
     rho_hat <- cor(data$a, data$b, method = "pearson")
 
-    return(tbl_pvalues)
+    return(list(tbl_pval = tbl_pval, rho_hat = rho_hat))
 
 
 } #list: 4 p_values, rho_hat --> list_data
