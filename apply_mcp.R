@@ -12,10 +12,11 @@ apply_mcp <- function(
     }
   }
 
-  tbl_power <- pval |>
+  tbl_sig_or_not <- pval |>
     tidyr::pivot_longer(c("a_2", "b_2", "a_1", "b_1"), values_to = "pvalue", names_to = "endpoint_group") |>
+    nest(data = everything()) |>
     dplyr::mutate(
-      tmp = furrr::future_map(data, ~test(.$pvalue),
+      p_ad = furrr::future_map(data, ~test(.$pvalue),
                               .options = furrr::furrr_options(
                                 seed = TRUE,
                                 scheduling = 5,
@@ -24,17 +25,13 @@ apply_mcp <- function(
       ),
       .keep = "unused"
     ) |>
-    tidyr::unnest(tmp) |>
+    tidyr::unnest(p_ad) |>
     tidyr::pivot_wider(
       names_from = c("endpoint", "group"),
       values_from = "significant",
       names_glue = "{endpoint}_{group}"
-    ) |>
-    dplyr::summarize(
-      both_ep_any = mean(a_1 & b_1 | a_2 & b_2),
-      both_ep_2 = mean(a_2 & b_2)
     )
-  return(tbl_power)
+  return(tbl_sig_or_not)
 }
 
 util_test_truncHochberg <- function(pval, gamma, alpha) {
