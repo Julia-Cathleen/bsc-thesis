@@ -12,6 +12,25 @@ apply_mcp <- function(
     }
   }
 
+  if (method == "Bonferroni") {
+    test <- function(pvalues) {
+      do.call(what = util_test_gMCP, args = list(c(pvalues),
+                                                 alpha = alpha,
+                                                 gamma = gamma,
+                                                 method = method))
+    }
+  }
+
+  if (method == "parametric") {
+    test <- function(pvalues) {
+      do.call(what = util_test_gMCP, args = list(c(pvalues),
+                                                 alpha = alpha,
+                                                 gamma = gamma,
+                                                 method = method,
+                                                 corr = util_construct_corr_matrix(rho)))
+    }
+  }
+
   tbl_sig_or_not <- pval |>
     tidyr::pivot_longer(c("a_2", "b_2", "a_1", "b_1"), values_to = "pvalue", names_to = "endpoint_group") |>
     nest(data = everything()) |>
@@ -53,6 +72,54 @@ util_test_truncHochberg <- function(pval, gamma, alpha) {
   return(tbl_results)
 
 } # tbl: dose, endpoint, rejected
+
+
+util_test_gMCP <- function(
+    pvalues,
+    gamma,
+    alpha,
+    corr = corr,
+    method = c("Bonferroni", "parametric")
+) {
+  if (length(pvalues) != 4) {
+    stop("Length of pvalues must equal number of nodes.")
+  }
+  method <- match.arg(arg = NULL, choices = method)
+  if (method == "Bonferroni") {
+    significant <- gMCPLite::gMCP(
+      graph = util_get_gMCP_graph(gamma),
+      pvalues =  pvalues,
+      test = method,
+      alpha = alpha,
+      verbose = FALSE
+    )@rejected
+  } else {
+    significant <- gMCPLite::gMCP(
+      graph = util_get_gMCP_graph(gamma),
+      pvalues =  pvalues,
+      test = method,
+      alpha = alpha,
+      verbose = FALSE,
+      correlation = corr
+    )@rejected
+  }
+  tbl_results <- tibble::tibble(
+    endpoint = c("a", "b", "a", "b"),
+    group = c(2, 2, 1, 1),
+    significant = significant
+  )
+  return(tbl_results)
+}
+
+util_get_gMCP_graph <- function(gamma){
+    m <- matrix(c(0, gamma, (1 - gamma)/2, (1 - gamma)/2,
+                  gamma, 0, (1 - gamma)/2, (1 - gamma)/2,
+                  0, 0, 0, 1,
+                  0, 0, 1, 0), nrow = 4, byrow = TRUE)
+    w <- c(0.5, 0.5, 0, 0)
+
+  return(gMCPLite::matrix2graph(m, w))
+}
 
 
 util_construct_corr_matrix <- function(
