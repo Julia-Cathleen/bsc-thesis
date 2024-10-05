@@ -8,7 +8,7 @@ simulate_data <- function(
       rho, 1
     ),2, byrow = TRUE)
 
-    m <- nrow(mu) # number of dosegroups
+    m <- nrow(effects) # number of dosegroups
 
     tbl_data <- expand_grid(
       group = 0:(m-1)
@@ -17,7 +17,7 @@ simulate_data <- function(
         y = purrr::map(
           group,
           function(g) {
-            res <- MASS::mvrnorm(n, mu[g + 1,], corr_mat_endpoints)
+            res <- MASS::mvrnorm(sample_size, effects[g + 1,], corr_mat_endpoints)
             colnames(res) <- c("a", "b")
             as_tibble(res)
           }
@@ -30,9 +30,9 @@ simulate_data <- function(
 
 #####
 n <- 5
-mu <- matrix(c(0, 0,
+effects <- matrix(c(0, 0,
                0, 0,
                0, 0), nrow = 3, ncol = 2) # Mittelwert-Matrix (Zeilen entsprechen Dosisgruppen)
 rho <- 0.5
 
-temp <- simulate_data(n, mu, rho)
+temp <- simulate_data(n, effects, rho)
