@@ -1,7 +1,8 @@
 summarize_data <- function(
-    data
+    data,
+    sample_size
 ) {
-    tbl_pval <- temp |>
+    tbl_pval <- data |>
       pivot_longer(
         a:b,
         names_to = "endpoint",
@@ -23,8 +24,8 @@ summarize_data <- function(
       mutate( #create the test - statistics
         mean_diff_1 = mean_group_1 - mean_group_0,
         mean_diff_2 = mean_group_2 - mean_group_0,
-        z_1 = mean_diff_1 / (sqrt((2 / n))),
-        z_2 = mean_diff_2 / (sqrt((2 / n)))
+        z_1 = mean_diff_1 / (sqrt((2 / sample_size))),
+        z_2 = mean_diff_2 / (sqrt((2 / sample_size)))
       ) |>
       select(
         endpoint, starts_with("z_")
@@ -57,4 +58,3 @@ summarize_data <- function(
 
 
 } #list: 4 p_values, rho_hat --> list_data
-temp2 <- summarize_data(temp)

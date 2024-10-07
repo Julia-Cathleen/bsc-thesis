@@ -27,12 +27,3 @@ simulate_data <- function(
     return(tbl_data)
 
 } # sample_size x 3 matrix with columns: dose (0, 1, 2), a, b
-
-#####
-n <- 5
-effects <- matrix(c(0, 0,
-               0, 0,
-               0, 0), nrow = 3, ncol = 2) # Mittelwert-Matrix (Zeilen entsprechen Dosisgruppen)
-rho <- 0.5
-
-temp <- simulate_data(n, effects, rho)

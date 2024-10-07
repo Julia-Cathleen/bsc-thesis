@@ -73,7 +73,6 @@ util_test_truncHochberg <- function(pval, gamma, alpha) {
 
 } # tbl: dose, endpoint, rejected
 
-
 util_test_gMCP <- function(
     pvalues,
     gamma,
@@ -120,7 +119,6 @@ util_get_gMCP_graph <- function(gamma){
 
   return(gMCPLite::matrix2graph(m, w))
 }
-
 
 util_construct_corr_matrix <- function(
     rho
