@@ -1,6 +1,6 @@
 
-n_sim <- 10
-sample_size <- 8
+n_sim <- 10000
+sample_size <- 80
 rho <- 0.9
 
 # define tbl_scenarios
