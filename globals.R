@@ -1,3 +1,4 @@
+library(tidyverse)
 
 n_sim <- 10000
 sample_size <- 80
@@ -17,7 +18,7 @@ gamma <- c(0.5, 0.9)
 alpha <- 0.05
 method <- c("truncHochberg", "Bonferroni", "parametric")
 
-tbl_scenarios <- tidyr::expand_grid(
+tbl_scenarios <- expand_grid(
   n_sim = n_sim,
   sample_size = sample_size,
   effect = effect,
@@ -31,10 +32,11 @@ tbl_scenarios <- tidyr::expand_grid(
     effect = map(effect_name, ~effect[[.]]),
     estimate = TRUE
   ) |>
-  tidyr::unnest_wider(effect, names_sep = "_") |>
+  unnest_wider(effect, names_sep = "_") |>
   rename(
     mu_a2 = effect_1,
     mu_b2 = effect_2,
     mu_a1 = effect_3,
     mu_b1 = effect_4
   )
+

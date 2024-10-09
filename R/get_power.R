@@ -32,7 +32,7 @@ get_power <- function(
                                .options = furrr::furrr_options(seed = TRUE))
     ) |>
     unnest(res) |>
-    dplyr::summarize(
+    summarize(
       power = mean(a_1 & b_1 | a_2 & b_2))
 
 

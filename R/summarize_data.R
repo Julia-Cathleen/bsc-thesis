@@ -41,7 +41,7 @@ summarize_data <- function(
             group, "(?<=z_).+"
           )
         ),
-        p = 1 - pnorm(z, lower.tail = FALSE)
+        p = pnorm(z, lower.tail = FALSE)
       )  |>
       select(-z) |>
       unite("endpoint_group", endpoint, group, sep = "_") |>
