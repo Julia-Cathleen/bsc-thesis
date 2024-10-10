@@ -14,7 +14,6 @@ simulate_scenario_once <- function(
                         mu_a1, mu_b1,
                         mu_a2, mu_b2), nrow = 3, byrow = TRUE)
 
-
   res <- summarize_data(simulate_data(sample_size, effects, rho), sample_size)
   if (estimate == TRUE) {
     rho <- res$rho_hat

@@ -1,6 +1,7 @@
 library(tidyverse)
 
-n_sim <- 10000
+n_sim <- 100000
+n_sim_per_batch <- 400
 sample_size <- 80
 rho <- 0.9
 
