@@ -1,0 +1,24 @@
+plot_type_I_error <- function(data){
+
+  data_long <- data|>
+    mutate(
+      sim_error = sqrt(power*(1 - power)/ n_sim)
+    )
+
+  plot <- ggplot(data_long,
+                 aes(x = effect_name, y = power, color = method)) +
+    geom_point(position = position_dodge(width = 0.3)) +
+    geom_hline(yintercept = 0, linetype="dashed", color = "darkgrey") +
+    geom_errorbar(aes(
+      ymin = power - sim_error,
+      ymax = power + sim_error),
+      width = 0.2,
+      position = position_dodge(width = 0.3)) +
+    theme_bw() +
+    labs(x="effect", y="power difference") +
+    scale_color_manual(name = "Method", values = c("truncHochberg" = "black", "Bonferroni" = "darkgray", "parametric" = "gray")) +
+    theme(legend.position = "bottom", legend.text = element_text(size = 10),  text = element_text(size = 14)) +
+    facet_grid(estimate ~ gamma)
+
+  return(plot)
+}

@@ -59,6 +59,6 @@ list(
     name = power_plot_null,
     command = tbl_data_summarized |>
       filter(effect_name == "null") |>
-      plot_power()
+      plot_type_I_error()
   )
 )
