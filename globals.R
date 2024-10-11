@@ -1,7 +1,7 @@
 library(tidyverse)
 
-n_sim <- 100000
-n_sim_per_batch <- 400
+n_sim <- 1000
+n_sim_per_batch <- 40
 sample_size <- 80
 rho <- 0.9
 
@@ -18,6 +18,7 @@ effect <- list(
 gamma <- c(0.5, 0.9)
 alpha <- 0.05
 method <- c("truncHochberg", "Bonferroni", "parametric")
+estimate <- c(TRUE, FALSE)
 
 tbl_scenarios <- expand_grid(
   n_sim = n_sim,
@@ -26,12 +27,12 @@ tbl_scenarios <- expand_grid(
   rho = rho,
   method = method,
   alpha = alpha,
-  gamma = gamma
+  gamma = gamma,
+  estimate = estimate
 ) |>
   mutate(
     effect_name = names(effect),
-    effect = map(effect_name, ~effect[[.]]),
-    estimate = TRUE
+    effect = map(effect_name, ~effect[[.]])
   ) |>
   unnest_wider(effect, names_sep = "_") |>
   rename(

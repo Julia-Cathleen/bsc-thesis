@@ -1,0 +1,38 @@
+plot_power <- function(data){
+
+  data_diff_gMCP_long <- data %>%
+    mutate(
+      sim_err_any = sqrt(power*(1 - power)/ n_sim)
+    ) %>%
+    group_by(effect_name, gamma) %>%
+    mutate(
+      diff_para_any = power - power[method == "parametric"]
+    ) %>%
+    ungroup()
+
+  # Create your plot
+  plot <- ggplot(data_diff_gMCP_long
+                 %>% filter(method %in% c("truncHochberg", "Bonferroni")),
+                 aes(x = effect_name, y = diff_para_any, color = method)) +
+    geom_point(position = position_dodge(width = 0.3)) +
+    geom_hline(yintercept = 0, linetype="dashed", color = "darkgrey") +
+    geom_errorbar(aes(
+      ymin = diff_para_any - sim_err_any,
+      ymax = diff_para_any + sim_err_any),
+      width = 0.2,
+      position = position_dodge(width = 0.3)) +
+    theme_bw() +
+    labs(x="effect", y="power difference") +
+    scale_color_manual(name = "Method", values = c("truncHochberg" = "darkgray", "Bonferroni" = "black")) +
+    theme(legend.position = "bottom", legend.text = element_text(size = 10),  text = element_text(size = 14)) +
+    facet_grid(estimate ~ gamma)
+
+  ggsave("power_results.jpg",
+         scale = 1.5,
+         plot = plot,
+         width = 8.27,
+         height = 5.5,
+         units = "in")
+
+  return(plot)
+}
