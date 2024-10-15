@@ -1,24 +1,13 @@
 plot_power <- function(data){
 
-  data_diff_gMCP_long <- data %>%
-    mutate(
-      sim_err_any = sqrt(power*(1 - power)/ n_sim)
-    ) %>%
-    group_by(effect_name, gamma) %>%
-    mutate(
-      diff_para_any = power - power[method == "parametric"]
-    ) %>%
-    ungroup()
-
-  # Create your plot
-  plot <- ggplot(data_diff_gMCP_long
+  plot <- ggplot(data
                  %>% filter(method %in% c("truncHochberg", "Bonferroni")),
                  aes(x = effect_name, y = diff_para_any, color = method)) +
     geom_point(position = position_dodge(width = 0.3)) +
     geom_hline(yintercept = 0, linetype="dashed", color = "darkgrey") +
     geom_errorbar(aes(
-      ymin = diff_para_any - sim_err_any,
-      ymax = diff_para_any + sim_err_any),
+      ymin = diff_para_any - sim_err_diff_para_any,
+      ymax = diff_para_any + sim_err_diff_para_any),
       width = 0.2,
       position = position_dodge(width = 0.3)) +
     theme_bw() +

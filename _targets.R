@@ -34,13 +34,18 @@ list(
   ),
 
   targets::tar_target(
+    name = tbl_data_diff,
+    command = calculate_differences(tbl_data_summarized)
+  ),
+
+  targets::tar_target(
     name = tbl_results,
-    command = code_table(tbl_data_summarized)
+    command = get_latex_table(tbl_data_diff)
   ),
 
   targets::tar_target(
     name = tbl_effects,
-    command = code_table(create_data_frame(effect))
+    command = get_latex_table(create_effect_tibble(effect))
   ),
 
   targets::tar_target(
@@ -50,14 +55,14 @@ list(
 
   targets::tar_target(
     name = power_plot,
-    command = tbl_data_summarized |>
+    command = tbl_data_diff |>
       filter(effect_name != "null") |>
       plot_power()
   ),
 
   targets::tar_target(
     name = power_plot_null,
-    command = tbl_data_summarized |>
+    command = tbl_data_diff |>
       filter(effect_name == "null") |>
       plot_type_I_error()
   )

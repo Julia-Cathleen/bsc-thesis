@@ -1,4 +1,4 @@
-create_data_frame <- function(data) {
+create_effect_tibble <- function(data) {
   mat <- do.call(rbind, data)
 
   df <- data.frame(mat)

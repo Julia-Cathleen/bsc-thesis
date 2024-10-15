@@ -1,6 +1,6 @@
 library(tidyverse)
 
-n_sim <- 100000
+n_sim <- 50000
 n_sim_per_batch <- 400
 sample_size <- 80
 rho <- 0.9
@@ -16,7 +16,7 @@ effect <- list(
   "null" = c(0, 0, 0, 0)
 )
 gamma <- c(0.5, 0.9)
-alpha <- 0.05
+alpha <- 0.025
 method <- c("truncHochberg", "Bonferroni", "parametric")
 estimate <- c(TRUE, FALSE)
 
