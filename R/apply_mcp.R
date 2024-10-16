@@ -59,9 +59,12 @@ util_test_truncHochberg <- function(pval, gamma, alpha) {
     as.numeric(pval),
     proc = "ParallelGatekeepingAdj",
     par = Mediana::parameters(
-      family = Mediana::families(family1 = c(1, 2), family2 = c(3, 4)),
-      proc = Mediana::families(family1 = "HochbergAdj", family2 = "HochbergAdj"),
-      gamma = Mediana::families(family1 = gamma, family2 = 1)
+      family = Mediana::families(family1 = c(1, 2),
+                                 family2 = c(3, 4)),
+      proc = Mediana::families(family1 = "HochbergAdj",
+                               family2 = "HochbergAdj"),
+      gamma = Mediana::families(family1 = gamma,
+                                family2 = 1)
     )
   )
   tbl_results <- tibble::tibble(

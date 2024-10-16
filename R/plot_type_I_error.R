@@ -5,8 +5,8 @@ plot_type_I_error <- function(data){
     geom_point(position = position_dodge(width = 0.3)) +
     geom_hline(yintercept = 0, linetype="dashed", color = "darkgrey") +
     geom_errorbar(aes(
-      ymin = power - sim_error,
-      ymax = power + sim_error),
+      ymin = lower_ci,
+      ymax = upper_ci),
       width = 0.2,
       position = position_dodge(width = 0.3)) +
     theme_bw() +

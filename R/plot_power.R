@@ -6,8 +6,8 @@ plot_power <- function(data){
     geom_point(position = position_dodge(width = 0.3)) +
     geom_hline(yintercept = 0, linetype="dashed", color = "darkgrey") +
     geom_errorbar(aes(
-      ymin = diff_para_any - sim_err_diff_para_any,
-      ymax = diff_para_any + sim_err_diff_para_any),
+      ymin = lower_ci,
+      ymax = upper_ci),
       width = 0.2,
       position = position_dodge(width = 0.3)) +
     theme_bw() +
