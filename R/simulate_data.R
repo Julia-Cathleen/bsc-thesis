@@ -1,6 +1,6 @@
 simulate_data <- function(
     sample_size, # number subjects per dosegroup
-    effects, # matrix 2 x 2? dose x endpoint
+    effects, # matrix 3 x 2? dose x endpoint
     rho # correlation between the endpoints
 ) {
     corr_mat_endpoints <- matrix(c(
