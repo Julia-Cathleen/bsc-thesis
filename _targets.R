@@ -28,8 +28,17 @@ list(
     name = tbl_data_summarized,
     command = tbl_power |>
       summarize(
-        power = mean(power, na.rm = TRUE),
+        power_all_in_one_dose = mean(power_all_in_one_dose, na.rm = TRUE),
+        power_any = mean(power_any, na.rm = TRUE),
         .by = names(tbl_scenarios)
+      ) |>
+      pivot_longer(
+        cols = c(power_all_in_one_dose, power_any),
+        names_to = "event",
+        values_to = "power"
+      ) |>
+      mutate(
+        event = stringr::str_remove(event, "power_")
       )
   ),
 
@@ -56,14 +65,14 @@ list(
   targets::tar_target(
     name = power_plot,
     command = tbl_data_diff |>
-      filter(effect_name != "null") |>
+      filter(effect_name != "null" & event == "all_in_one_dose") |>
       plot_power()
   ),
 
   targets::tar_target(
     name = power_plot_null,
     command = tbl_data_diff |>
-      filter(effect_name == "null") |>
+      filter(effect_name == "null" & event == "any") |>
       plot_type_I_error()
   )
 )

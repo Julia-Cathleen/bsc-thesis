@@ -33,7 +33,9 @@ get_power <- function(
     ) |>
     unnest(res) |>
     summarize(
-      power = mean(a_1 & b_1 | a_2 & b_2))
+      power_all_in_one_dose = mean(a_1 & b_1 | a_2 & b_2),
+      power_any = mean(a_1 | b_1 | a_2 | b_2)
+    )
 
 
   return(tbl_results)
