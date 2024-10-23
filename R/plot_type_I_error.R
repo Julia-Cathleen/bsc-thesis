@@ -4,6 +4,7 @@ plot_type_I_error <- function(data){
                  aes(x = effect_name, y = power, color = method)) +
     geom_point(position = position_dodge(width = 0.3)) +
     geom_hline(yintercept = 0, linetype="dashed", color = "darkgrey") +
+    geom_hline(yintercept = 0.025, linetype="dashed", color = "black") +
     geom_errorbar(aes(
       ymin = lower_ci,
       ymax = upper_ci),
