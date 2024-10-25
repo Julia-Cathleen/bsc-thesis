@@ -15,9 +15,9 @@ method|object|5b0f3aeecf0974f3|||||||||||||||
 n_sim|object|cf81d67d2bdf0d8f|||||||||||||||
 n_sim_per_batch|object|e8324796932fa831|||||||||||||||
 plot_power|function|833ffd81baa31541|||||||||||||||
-plot_type_I_error|function|096f02382eaac36d|||||||||||||||
+plot_type_I_error|function|030c6e765712635e|||||||||||||||
 power_plot|stem|cfd045bfdcc4f117|247a80ebd024f52d|9e00f385dbec43d8|841147421||t20019.3719493956s|78142c0bbf703103|105586|rds|local|vector|||0.624||
-power_plot_null|stem|db6f493adc89333a|727a94b8c2ef6cbd|10311c3b3753b320|-356530768||t20019.3719499745s|9230ca805d619dc5|101433|rds|local|vector|||0.026||
+power_plot_null|stem|dbe5f9cf07b06457|727a94b8c2ef6cbd|cf1019ceb43157ed|-356530768||t20021.3381318791s|a4470455faf53a58|105807|rds|local|vector|||0.723||
 rho|object|f32584bad524086c|||||||||||||||
 sample_size|object|6281f79619f6778a|||||||||||||||
 simulate_data|function|fcc937d2cd36319f|||||||||||||||
