@@ -3,7 +3,7 @@ library(tidyverse)
 n_sim <- 100000
 n_sim_per_batch <- 400
 sample_size <- 80
-rho <- 0.9
+rho <- c(0.5, 0.7, 0.9)
 
 # define tbl_scenarios
 

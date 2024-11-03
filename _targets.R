@@ -44,7 +44,7 @@ list(
 
   targets::tar_target(
     name = tbl_data_diff,
-    command = calculate_differences(tbl_data_summarized)
+    command = calculate_differences(tbl_data_summarized |> filter(rho == 0.9))
   ),
 
   targets::tar_target(
@@ -63,16 +63,30 @@ list(
   ),
 
   targets::tar_target(
-    name = power_plot,
+    name = power_plot_absolut_high,
     command = tbl_data_diff |>
-      filter(effect_name != "null" & event == "all_in_one_dose") |>
+      filter(rho == 0.9, effect_name %in% c("except_a_1", "high", "equal"), event == "all_in_one_dose") |>
+      plot_power_absolut()
+  ),
+
+  targets::tar_target(
+    name = power_plot_absolut_low,
+    command = tbl_data_diff |>
+      filter(rho == 0.9, effect_name %in% c("just_a", "low"), event == "all_in_one_dose") |>
+      plot_power_absolut()
+  ),
+
+  targets::tar_target(
+    name = power_plot_parametric,
+    command = tbl_data_diff |>
+      filter(effect_name != "null" & event == "all_in_one_dose", method == "parametric") |>
       plot_power()
   ),
 
   targets::tar_target(
     name = power_plot_null,
     command = tbl_data_diff |>
-      filter(effect_name == "null" & event == "any") |>
+      filter(effect_name == "null", rho == 0.9, method == "parametric", event == "any") |>
       plot_type_I_error()
   )
 )
