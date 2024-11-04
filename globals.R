@@ -8,11 +8,11 @@ rho <- c(0.5, 0.7, 0.9)
 # define tbl_scenarios
 
 effect <- list(
-  "just_a" = c(0.4, 0, 0.2, 0),
-  "except_a_1" = c(0.4, 0.4, 0, 0.2),
-  "low" = c(0, 0, 0.4, 0.4),
-  "equal" = c(0.4, 0.4, 0.4, 0.4),
-  "high" = c(0.4, 0.4, 0, 0),
+  "effect_in_a" = c(0.4, 0, 0.2, 0),
+  "effect_in_a2_b2_b1" = c(0.4, 0.4, 0, 0.2),
+  "low_dose" = c(0, 0, 0.4, 0.4),
+  "equal_effects" = c(0.4, 0.4, 0.4, 0.4),
+  "high_dose" = c(0.4, 0.4, 0, 0),
   "null" = c(0, 0, 0, 0)
 )
 gamma <- c(0.5, 0.9)
