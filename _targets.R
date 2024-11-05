@@ -65,7 +65,7 @@ list(
   targets::tar_target(
     name = power_plot_absolut_high,
     command = tbl_data_diff |>
-      filter(rho == 0.9, effect_name %in% c("effects_in_a2_b2_b1", "high_dose", "equal_effects"), event == "all_in_one_dose") |>
+      filter(rho == 0.9, effect_name %in% c("effect_in_a2_b2_b1", "high_dose", "equal_effects"), event == "all_in_one_dose") |>
       plot_power_absolut()
   ),
 
