@@ -62,12 +62,19 @@ list(
     command = get_test_graph(alpha, gamma[2])
   ),
 
+
   targets::tar_target(
     name = power_plot_absolut_high,
     command = tbl_data_diff |>
       filter(rho == 0.9, effect_name %in% c("effect_in_a2_b2_b1", "high_dose", "equal_effects"), event == "all_in_one_dose") |>
       plot_power_absolut()
   ),
+
+  targets::tar_target(
+    name = file_power_plot_absolut_high,
+    command = save(power_plot_absolut_high, file = "file_power_plot_absolut_high")
+  ),
+
 
   targets::tar_target(
     name = power_plot_absolut_low,
@@ -77,6 +84,12 @@ list(
   ),
 
   targets::tar_target(
+    name = file_power_plot_absolut_low,
+    command = save(power_plot_absolut_low, file = "file_power_plot_absolut_low")
+  ),
+
+
+  targets::tar_target(
     name = power_plot_parametric,
     command = tbl_data_diff |>
       filter(effect_name != "null" & event == "all_in_one_dose", method == "parametric") |>
@@ -84,9 +97,22 @@ list(
   ),
 
   targets::tar_target(
+    name = file_power_plot_parametric,
+    command = save(power_plot_absolut_high, file = "file_power_plot_parametric")
+  ),
+
+
+  targets::tar_target(
     name = power_plot_null,
     command = tbl_data_diff |>
       filter(effect_name == "null", rho == 0.9, method == "parametric", event == "any") |>
       plot_type_I_error()
+  ),
+
+  targets::tar_target(
+    name = file_power_plot_absolut_null,
+    command = save(power_plot_absolut_null, file = "file_power_plot_absolut_null")
   )
+
+
 )
