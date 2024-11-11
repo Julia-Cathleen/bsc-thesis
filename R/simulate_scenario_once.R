@@ -8,14 +8,14 @@ simulate_scenario_once <- function(
     method,
     alpha,
     gamma,
-    estimate
+    corr_estimation
 ) {
    effects <- matrix (c(0, 0,
                         mu_a1, mu_b1,
                         mu_a2, mu_b2), nrow = 3, byrow = TRUE)
 
   res <- summarize_data(simulate_data(sample_size, effects, rho), sample_size)
-  if (estimate == TRUE) {
+  if (corr_estimation == TRUE) {
     rho <- res$rho_hat
   }
   res <- apply_mcp(res$tbl_pval, rho, method, alpha, gamma)

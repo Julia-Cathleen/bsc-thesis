@@ -9,7 +9,7 @@ get_power <- function(
     method,
     alpha,
     gamma,
-    estimate
+    corr_estimation
   ) {
 
   vec <- list(sample_size = sample_size,
@@ -21,7 +21,7 @@ get_power <- function(
            method = method,
            alpha = alpha,
            gamma = gamma,
-           estimate = estimate)
+           corr_estimation = corr_estimation)
 
   params <- as_tibble(t(replicate(n_sim, vec)))
 

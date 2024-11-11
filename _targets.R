@@ -18,7 +18,7 @@ list(
   tarchetypes::tar_map_rep(
     name = tbl_power,
     command = {
-        get_power(n_sim_per_batch, sample_size, mu_a1, mu_a2,mu_b1, mu_b2, rho, method, alpha, gamma, estimate)
+        get_power(n_sim_per_batch, sample_size, mu_a1, mu_a2,mu_b1, mu_b2, rho, method, alpha, gamma, corr_estimation)
     },
     batches = batches, # total sims per scenario = batches * n_sim
     values = tbl_scenarios # defined in globals.R
@@ -66,26 +66,30 @@ list(
   targets::tar_target(
     name = power_plot_absolut_high,
     command = tbl_data_diff |>
-      filter(rho == 0.9, effect_name %in% c("effect_in_a2_b2_b1", "high_dose", "equal_effects"), event == "all_in_one_dose") |>
+      filter(rho == 0.9, effect_name %in% c("II", "IV", "V"), event == "all_in_one_dose") |>
       plot_power_absolut()
   ),
 
   targets::tar_target(
     name = file_power_plot_absolut_high,
-    command = save(power_plot_absolut_high, file = "file_power_plot_absolut_high")
+    command = ggsave(filename = "file_power_plot_absolut_high.jpg",
+                     plot = power_plot_absolut_high,
+                     width = 6)
   ),
 
 
   targets::tar_target(
     name = power_plot_absolut_low,
     command = tbl_data_diff |>
-      filter(rho == 0.9, effect_name %in% c("effect_in_a", "low_dose"), event == "all_in_one_dose") |>
+      filter(rho == 0.9, effect_name %in% c("I", "III"), event == "all_in_one_dose") |>
       plot_power_absolut()
   ),
 
   targets::tar_target(
     name = file_power_plot_absolut_low,
-    command = save(power_plot_absolut_low, file = "file_power_plot_absolut_low")
+    command = ggsave(filename = "file_power_plot_absolut_low.jpg",
+                     plot = power_plot_absolut_low,
+                     width = 6)
   ),
 
 
@@ -98,7 +102,9 @@ list(
 
   targets::tar_target(
     name = file_power_plot_parametric,
-    command = save(power_plot_absolut_high, file = "file_power_plot_parametric")
+    command = ggsave(filename = "file_power_plot_parametric.jpg",
+                     plot = power_plot_parametric,
+                     width = 6)
   ),
 
 
@@ -111,7 +117,8 @@ list(
 
   targets::tar_target(
     name = file_power_plot_absolut_null,
-    command = save(power_plot_absolut_null, file = "file_power_plot_absolut_null")
+    command = ggsave(filename = "file_power_plot_null.jpg",
+                     plot = power_plot_null)
   )
 
 
