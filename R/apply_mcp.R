@@ -37,7 +37,6 @@ apply_mcp <- function(
     dplyr::mutate(
       p_ad = furrr::future_map(data, ~test(.$pvalue),
                               .options = furrr::furrr_options(
-                                seed = TRUE,
                                 scheduling = 5,
                                 packages = "Mediana"
                               )

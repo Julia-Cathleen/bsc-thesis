@@ -28,8 +28,7 @@ get_power <- function(
   tbl_results <- tibble(iter = 1:n_sim) |>
     mutate(
       res = furrr::future_pmap(params,
-                               ~simulate_scenario_once(..1, ..2, ..3, ..4, ..5, ..6, ..7, ..8, ..9, ..10),
-                               .options = furrr::furrr_options(seed = TRUE))
+                               ~simulate_scenario_once(..1, ..2, ..3, ..4, ..5, ..6, ..7, ..8, ..9, ..10))
     ) |>
     unnest(res) |>
     summarize(
