@@ -1,3 +1,7 @@
+options(
+  tidyverse.quiet = TRUE
+)
+
 library(targets)
 
 tar_option_set(
@@ -72,7 +76,7 @@ list(
 
   targets::tar_target(
     name = file_power_plot_absolut_high,
-    command = ggsave(filename = "file_power_plot_absolut_high.jpg",
+    command = ggsave(filename = "results/power_plot_absolut_high.jpg",
                      plot = power_plot_absolut_high,
                      width = 6)
   ),
@@ -87,7 +91,7 @@ list(
 
   targets::tar_target(
     name = file_power_plot_absolut_low,
-    command = ggsave(filename = "file_power_plot_absolut_low.jpg",
+    command = ggsave(filename = "results/power_plot_absolut_low.jpg",
                      plot = power_plot_absolut_low,
                      width = 6)
   ),
@@ -102,7 +106,7 @@ list(
 
   targets::tar_target(
     name = file_power_plot_parametric,
-    command = ggsave(filename = "file_power_plot_parametric.jpg",
+    command = ggsave(filename = "results/power_plot_parametric.jpg",
                      plot = power_plot_parametric,
                      width = 6)
   ),
@@ -117,7 +121,7 @@ list(
 
   targets::tar_target(
     name = file_power_plot_absolut_null,
-    command = ggsave(filename = "file_power_plot_null.jpg",
+    command = ggsave(filename = "results/power_plot_null.jpg",
                      plot = power_plot_null)
   )
 
