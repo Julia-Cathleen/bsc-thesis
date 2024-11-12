@@ -4,11 +4,7 @@
     "Repositories": [
       {
         "Name": "CRAN",
-        "URL": "https://pm.prod.copernicus.aws.boehringer.com/cran/2024-01-12"
-      },
-      {
-        "Name": "NEXUS",
-        "URL": "https://nexus-ods.apps.eu-dev.ocp.aws.boehringer.com/repository/r-hosted/ndvcdmod"
+        "URL": "https://cloud.r-project.org/"
       }
     ]
   },
