@@ -9,12 +9,5 @@ plot_power_absolut <- function(data){
     theme(legend.position = "bottom", legend.text = element_text(size = 10),  text = element_text(size = 10)) +
     facet_grid(~ gamma, labeller = label_both)
 
-  ggsave("power_results.jpg",
-         scale = 1.5,
-         plot = plot,
-         width = 8.27,
-         height = 5.5,
-         units = "in")
-
   return(plot)
 }
