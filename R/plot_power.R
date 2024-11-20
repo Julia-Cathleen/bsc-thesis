@@ -12,15 +12,8 @@ plot_power <- function(data){
     theme_bw() +
     labs(x="effect", y="power") +
     scale_color_manual(name = "corr_estimation", values = c("TRUE" = "darkgray", "FALSE" = "black")) +
-    theme(legend.position = "bottom", legend.text = element_text(size = 10),  text = element_text(size = 14)) +
+    theme(legend.position = "bottom", legend.box = "vertical", legend.text = element_text(size = 10),  text = element_text(size = 14)) +
     facet_grid( ~ gamma, labeller = label_both)
-
-  ggsave("power_results.jpg",
-         scale = 1.5,
-         plot = plot,
-         width = 8.27,
-         height = 5.5,
-         units = "in")
 
   return(plot)
 }
