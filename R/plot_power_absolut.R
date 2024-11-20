@@ -11,7 +11,7 @@ plot_power_absolut <- function(data){
 
   plot <- ggplot(data,
                  aes(x = method, y = power, color = corr_estimation)) +
-    geom_point(position = position_dodge(width = 0.3), size = 2.6) +
+    geom_point(position = position_dodge(width = 0.3), size = 2) +
     geom_errorbar(aes(
       ymin = lower_ci,
       ymax = upper_ci),

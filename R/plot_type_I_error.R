@@ -7,7 +7,7 @@ plot_type_I_error <- function(data){
 
   plot <- ggplot(data,
                  aes(x = corr_estimation, y = power)) +
-    geom_point(position = position_dodge(width = 0.3), size = 2.6) +
+    geom_point(position = position_dodge(width = 0.3), size = 2) +
     geom_hline(yintercept = 0.025, linetype="dashed", color = "darkgrey") +
     geom_errorbar(aes(
       ymin = lower_ci,

@@ -78,7 +78,8 @@ list(
     name = file_power_plot_absolut_high,
     command = ggsave(filename = "results/power_plot_absolut_high.pdf",
                      plot = power_plot_absolut_high,
-                     width = 5.78)
+                     width = 5.78,
+                     height = 5.5)
   ),
 
 
@@ -93,7 +94,8 @@ list(
     name = file_power_plot_absolut_low,
     command = ggsave(filename = "results/power_plot_absolut_low.pdf",
                      plot = power_plot_absolut_low,
-                     width = 5.78)
+                     width = 5.78,
+                     height = 5.5)
   ),
 
 
@@ -108,7 +110,8 @@ list(
     name = file_power_plot_parametric,
     command = ggsave(filename = "results/power_plot_parametric.pdf",
                      plot = power_plot_parametric,
-                     width = 5.78)
+                     width = 5.78,
+                     height = 5.5)
   ),
 
 
@@ -123,7 +126,8 @@ list(
     name = file_power_plot_absolut_null,
     command = ggsave(filename = "results/power_plot_null.pdf",
                      plot = power_plot_null,
-                     width = 5.78)
+                     width = 5.78,
+                     height = 4)
   )
 
 

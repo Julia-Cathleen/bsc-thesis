@@ -2,7 +2,7 @@ plot_power <- function(data){
 
   plot <- ggplot(data,
                  aes(x = effect_name, y = power, color = corr_estimation)) +
-    geom_point(position = position_dodge(width = 0.3), size = 2.6) +
+    geom_point(position = position_dodge(width = 0.3), size = 2) +
     geom_hline(yintercept = 0, linetype="dashed", color = "darkgrey") +
     geom_errorbar(aes(
       ymin = lower_ci,
