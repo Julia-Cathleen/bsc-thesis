@@ -47,13 +47,13 @@ list(
   ),
 
   targets::tar_target(
-    name = tbl_data_diff,
-    command = calculate_differences(tbl_data_summarized |> filter(rho == 0.9))
+    name = tbl_results,
+    command = get_latex_table(tbl_data_summarized)
   ),
 
   targets::tar_target(
-    name = tbl_results,
-    command = get_latex_table(tbl_data_diff)
+    name = tbl_data_diff,
+    command = calculate_differences(tbl_data_summarized |> filter(rho == 0.9))
   ),
 
   targets::tar_target(
@@ -76,9 +76,9 @@ list(
 
   targets::tar_target(
     name = file_power_plot_absolut_high,
-    command = ggsave(filename = "results/power_plot_absolut_high.jpg",
+    command = ggsave(filename = "results/power_plot_absolut_high.pdf",
                      plot = power_plot_absolut_high,
-                     width = 6)
+                     width = 5.78)
   ),
 
 
@@ -91,9 +91,9 @@ list(
 
   targets::tar_target(
     name = file_power_plot_absolut_low,
-    command = ggsave(filename = "results/power_plot_absolut_low.jpg",
+    command = ggsave(filename = "results/power_plot_absolut_low.pdf",
                      plot = power_plot_absolut_low,
-                     width = 6)
+                     width = 5.78)
   ),
 
 
@@ -106,9 +106,9 @@ list(
 
   targets::tar_target(
     name = file_power_plot_parametric,
-    command = ggsave(filename = "results/power_plot_parametric.jpg",
+    command = ggsave(filename = "results/power_plot_parametric.pdf",
                      plot = power_plot_parametric,
-                     width = 6)
+                     width = 5.78)
   ),
 
 
@@ -121,8 +121,9 @@ list(
 
   targets::tar_target(
     name = file_power_plot_absolut_null,
-    command = ggsave(filename = "results/power_plot_null.jpg",
-                     plot = power_plot_null)
+    command = ggsave(filename = "results/power_plot_null.pdf",
+                     plot = power_plot_null,
+                     width = 5.78)
   )
 
 
