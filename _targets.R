@@ -5,7 +5,7 @@ options(
 library(targets)
 
 tar_option_set(
-  packages = c("tidyverse", "tidyr", "dplyr", "xtable"),
+  packages = c("tidyverse", "tidyr", "dplyr", "gt"),
   controller = crew.cluster::crew_controller_slurm(
     workers = 32 * 100, slurm_cpus_per_task = 1, slurm_memory_gigabytes_per_cpu = 4
   )
@@ -48,7 +48,7 @@ list(
 
   targets::tar_target(
     name = tbl_results,
-    command = get_latex_table(tbl_data_summarized)
+    command = get_latex_table(tbl_data_summarized |> select(rho, method, gamma, corr_estimation, effect_name, event, power))
   ),
 
   targets::tar_target(
