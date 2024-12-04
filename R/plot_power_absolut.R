@@ -22,7 +22,7 @@ plot_power_absolut <- function(data){
       position = position_dodge(0.3)) +
     theme_bw() +
     labs(x="", y="power") +
-    scale_color_manual(name = "corr_estimation", values = c("TRUE" = "darkgray", "FALSE" = "black"), breaks = c("TRUE", "FALSE")) +
+    scale_color_manual(name = "estimate correlation", values = c("TRUE" = "darkgray", "FALSE" = "black"), breaks = c("TRUE", "FALSE")) +
     theme(legend.position = "bottom", legend.box = "vertical", legend.text = element_text(size = 10),  text = element_text(size = 14)) +
     facet_grid(effect_name ~ gamma, labeller = label_both) +
     coord_cartesian(ylim = c(ymin, ymax)) +
