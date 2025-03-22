@@ -2,30 +2,30 @@
 
 Power comparison of the truncated Hochberg procedure vs. graphical approach with GMCPLite using whether a weighted parametric or Bonferroni test.
 
-This repository contains a set of functions for performing statistical power calculations using the main function get_power. This function uses either the truncated Hochberg or the graphical multiple comparison procedures (gMCP).
+This repository contains a set of functions for performing statistical power calculations using the main function get_power. This function uses either the truncated Hochberg or the graphical multiple comparison procedures (gMCP). The method is specified in the parameter "method".
 
 ## Function Description
-The simulate_data function needs the sample_size, effect matrix and the correlation between the considered endpoints, to generate a tibble (sample_size x 3) with columns dose and one for each endpoint. This matrix contains multivariate normal distributed random variables which represent the response per patient and endpoint.
+The simulate_data function needs the sample_size, effect matrix and the correlation between the considered endpoints, to generate a tibble (sample_size x 3) with columns dose and one for each endpoint (in total there are two endpoints). This matrix contains multivariate normal distributed random variables which represent the response per patient and endpoint.
 
-Summarize_data needs the data tibble of simulate_data and the sample_size. This function calculates four p-values, one for each combination of dose group and endpoint, with a one-sided Z-test and an estimator for the correlation between the endpoints. The correlation is calculated with the Pearson correlation coefficient.
+Summarize_data needs the data tibble of simulate_data and the sample_size. This function calculates four p-values, one for each combination of dose group and endpoint, with a one-sided Z-test and an estimator for the correlation between the endpoints. One p-value for each comparison of the observed effect in one endpoint in the treatment group against the effect of the same endpoint in the control group. The correlation is calculated with the Pearson correlation coefficient.
 
-Apply_mcp takes as input a tibble of p-values, the correlation between the endpoints rho, the method, the significance level alpha and the truncation parameter gamma. It calculates the adjusted p-values with the respective method and returns a tibble of them.
+Apply_mcp takes as input a tibble of p-values (size: sample_size x 4), the correlation between the endpoints rho, the method, the significance level alpha and the truncation parameter gamma. It calculates the adjusted p-values with the respective method and returns a tibble of them (same size as the input tibble).
 
-Simulate_scenario_once expects the sample_size, the mean values for a1, a2, b1, b2, the correlation parameter for the endpoints rho, the method, the significance level alpha, the truncation parameter gamma. In addition it needs the information whether the rho should be estimated or not, which is saved in corr_estimation. The function calls first simulate_data to be able to call summarize_data and afterwards to call apply_mcp. In total the function creates a tibble of adjusted p-values for specific parameter combinations.
+Simulate_scenario_once expects the sample_size, the mean values for a1, a2, b1, b2, the parameter for the correlation between the endpoints rho, the method, the significance level alpha, the truncation parameter gamma. In addition it needs the information whether rho should be estimated or not, which is saved in corr_estimation. The function first calls simulate_data to be able to call summarize_data and afterwards to call apply_mcp. In total the function creates a tibble of adjusted p-values for specific parameter combinations.
 
-The get_power function takes as input the number of simulations n_sim, the sample_size, the mean values for a1, a2, b1, b2, the correlation parameter for the endpoints rho, the method, the significance level alpha, the truncation parameter gamma. In addition it needs the information whether the rho should be estimated or not, which is saved in corr_estimation. This function calls n_sim times simulate_scenario_once and calculates two power values. Power_all_in_one_dose represents the power in case that all endpoints in one dose are significant and the second power is called power_any, where any endpoint is significant. Power_any in the null scenario represents the type one error rate in the null scenario.
+The get_power function takes as input the number of simulations n_sim, the sample_size, the mean values for a1, a2, b1, b2, (a and b represent the endpoints; 1 and 2 represent the dose groups (1 is the low dose group and 2 the high dose group)), the correlation parameter for the endpoints rho, the method, the significance level alpha and the truncation parameter gamma. In addition it needs the information whether the rho should be estimated or not, which is saved in corr_estimation. This function calls n_sim times simulate_scenario_once and calculates two power values. Power_all_in_one_dose represents the power in case that all endpoints in one dose are significant and the second power is called power_any, where any endpoint in any dose group is significant. Power_any in the null scenario represents the type one error rate.
 
 Create_effect_tibble generates a tibble of the different effects. Therefore it expects the mean values and the name of the effect scenarios.
 
 Get_latex_table takes as input a tibble and returns the latex code for this tibble.
 
-Calculate_differences expects a tibble of power values and calculates the difference between the power, where the method “parametric” was used, and all the other power values. In addition to that the confidence intervals are calculated.
+Calculate_differences expects a tibble of power values and calculates the difference between the power, where the method “parametric” was used, and all the other power values. In addition to that the simulaiton error is calculated.
 
-Get_test_graph generates an illustration of the test graph with the respective alpha and gamma.
+Get_test_graph generates an illustration of the test graph with the respective alpha and gamma. The structure of the test graph is predefined and as similar as possible to the test order of the truncated Hochberg procedure.
 
-There are some functions to plot the power. Plot_power_absolut plots the absolut values of the power. It differentiates between the trunctation parameter gamma and if the correlation of the endpoint was estimated or not. Plot_type_I_error plots the power and differentiates between the truncation parameters and the values for the correlation between the endpoints.
+There are some functions to plot the power. Plot_power_absolut plots the absolut values of the power. It differentiates between the trunctation parameter gamma and if the correlation of the endpoint was estimated or not. Plot_type_I_error plots the power and differentiates between the truncation parameters and the values for the correlation between the endpoints. Here, the plot shows FWER in case of focusing on the null scenario.
 
-The targets pipeline executes all of these functions and saves the plots in the results folder.
+The targets pipeline executes all of these functions and saves the plots in a results folder.
 
 ## Usage
 ```
